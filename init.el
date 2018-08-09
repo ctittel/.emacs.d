@@ -1,24 +1,40 @@
-; == Meine emacs config
+;; init.el --- Emacs configuration
+
+;; INSTALL PACKAGES
+;; --------------------------------------
 
 (require 'package)
+
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 
 (package-initialize)
-
-
-					;=========== Variablen und Einstellungen für Packages
-					;==================================================
-
-					;---------- Lade nicht vorhandene packages
-(unless package-archive-contents
+(when (not package-archive-contents)
   (package-refresh-contents))
-(package-install-selected-packages)
 
+(defvar myPackages
+  '(better-defaults
+    material-theme
+    helm
+    elpy
+    flycheck))
 
+(mapc #'(lambda (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+      myPackages)
 
-					;------------- Backup Dateien
+;; BASIC CUSTOMIZATION
+;; --------------------------------------
+
+(setq inhibit-startup-message t) ;; hide the startup message
+(load-theme 'material t) ;; load material theme
+(global-linum-mode t) ;; enable line numbers globally
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(setq visible-bell t)
+
 (setq
  backup-by-copying t      ; don't clobber symlinks
  delete-old-versions t
@@ -26,20 +42,29 @@
  kept-old-versions 2
  version-control t       ; use versioned backups
  )
+
 (setq auto-save-file-name-transforms `((".*" . ,temporary-file-directory)))
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
-					;----------- Startup Screen
-(setq inhibit-startup-screen t)
-					;-------------------- Menu Bar und Tool Bar
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+;; AUTOMATISCH
+;; -------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (elpy material-theme better-defaults helm))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
-					;------------ bell
-(setq visible-bell t)
 
-					;--------------- helm
+;; HELM
+;; ------------------------------------
 (require 'helm)
 (require 'helm-config)
 
@@ -88,3 +113,10 @@
 (helm-autoresize-mode 1)
 
 (helm-mode 1)
+
+;; PYTHON
+;; -----------------------------------
+(elpy-enable)
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
