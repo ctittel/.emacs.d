@@ -54,7 +54,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (elpy material-theme better-defaults helm))))
+ '(package-selected-packages
+   (quote
+    (ess elpy material-theme better-defaults helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -120,3 +122,18 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+
+;; JULIA
+;; -----------------------------------
+;(add-to-list 'load-path "julia")
+;(require 'julia-mode)
+;(add-hook 'julia-mode-hook
+;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
+
+;; ESS
+;; -------------------
+(require 'ess-site)
+ (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
+ (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
+(setq ess-history-file nil)
