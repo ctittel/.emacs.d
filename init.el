@@ -54,37 +54,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   (vector "#ffffff" "#f36c60" "#8bc34a" "#fff59d" "#4dd0e1" "#b39ddb" "#81d4fa" "#263238"))
- '(custom-enabled-themes nil)
- '(fci-rule-color "#37474f")
- '(hl-sexp-background-color "#1c1f26")
- '(package-selected-packages (quote (auctex elpy material-theme better-defaults helm)))
- '(send-mail-function (quote mailclient-send-it))
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
+ '(package-selected-packages
    (quote
-    ((20 . "#f36c60")
-     (40 . "#ff9800")
-     (60 . "#fff59d")
-     (80 . "#8bc34a")
-     (100 . "#81d4fa")
-     (120 . "#4dd0e1")
-     (140 . "#b39ddb")
-     (160 . "#f36c60")
-     (180 . "#ff9800")
-     (200 . "#fff59d")
-     (220 . "#8bc34a")
-     (240 . "#81d4fa")
-     (260 . "#4dd0e1")
-     (280 . "#b39ddb")
-     (300 . "#f36c60")
-     (320 . "#ff9800")
-     (340 . "#fff59d")
-     (360 . "#8bc34a"))))
- '(vc-annotate-very-old-color nil))
+    (ess elpy material-theme better-defaults helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -150,6 +122,21 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+
+;; JULIA
+;; -----------------------------------
+;(add-to-list 'load-path "julia")
+;(require 'julia-mode)
+;(add-hook 'julia-mode-hook
+;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
+
+;; ESS
+;; -------------------
+(require 'ess-site)
+ (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
+ (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
+(setq ess-history-file nil)
 
 ;; Latex (AucTex)
 ;; -------------------------
