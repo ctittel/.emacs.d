@@ -133,10 +133,10 @@
 
 ;; ESS
 ;; -------------------
-(require 'ess-site)
- (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
- (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
-(setq ess-history-file nil)
+;; (require 'ess-site)
+;;  (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
+;;  (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
+;; (setq ess-history-file nil)
 
 ;; Latex (AucTex)
 ;; -------------------------
