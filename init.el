@@ -47,6 +47,11 @@
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
+;; Sprache: Deutsch und English
+;; ------------------------------
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+
 ;; AUTOMATISCH
 ;; -------------------------------
 (custom-set-variables
@@ -54,9 +59,36 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#ffffff" "#f36c60" "#8bc34a" "#fff59d" "#4dd0e1" "#b39ddb" "#81d4fa" "#263238"))
+ '(custom-enabled-themes nil)
+ '(fci-rule-color "#37474f")
+ '(hl-sexp-background-color "#1c1f26")
+ '(package-selected-packages (quote (ess elpy material-theme better-defaults helm)))
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
    (quote
-    (ess elpy material-theme better-defaults helm))))
+    ((20 . "#f36c60")
+     (40 . "#ff9800")
+     (60 . "#fff59d")
+     (80 . "#8bc34a")
+     (100 . "#81d4fa")
+     (120 . "#4dd0e1")
+     (140 . "#b39ddb")
+     (160 . "#f36c60")
+     (180 . "#ff9800")
+     (200 . "#fff59d")
+     (220 . "#8bc34a")
+     (240 . "#81d4fa")
+     (260 . "#4dd0e1")
+     (280 . "#b39ddb")
+     (300 . "#f36c60")
+     (320 . "#ff9800")
+     (340 . "#fff59d")
+     (360 . "#8bc34a"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,7 +172,14 @@
 
 ;; Latex (AucTex)
 ;; -------------------------
-(load "auctex.el" nil t t)
+;;(load "auctex.el" nil t t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 (setq TeX-PDF-mode t)
+
+
+;; Same Instance
+;; --------------------
+(require 'server)
+(unless (server-running-p)
+  (server-start)) 
