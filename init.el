@@ -56,7 +56,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ess elpy material-theme better-defaults helm))))
+    (slime ess elpy material-theme better-defaults helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -137,3 +137,8 @@
  (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
  (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
 (setq ess-history-file nil)
+
+;; SLIME
+;; -----------------
+(setq inferior-lisp-program "sbcl")
+(setq slime-contribs '(slime-fancy))
