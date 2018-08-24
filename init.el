@@ -15,7 +15,6 @@
 
 (defvar myPackages
   '(better-defaults
-    material-theme
     helm
     elpy
     flycheck))
@@ -29,7 +28,6 @@
 ;; --------------------------------------
 
 (setq inhibit-startup-message t) ;; hide the startup message
-(load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -66,7 +64,7 @@
  '(custom-enabled-themes nil)
  '(fci-rule-color "#37474f")
  '(hl-sexp-background-color "#1c1f26")
- '(package-selected-packages (quote (ess elpy material-theme better-defaults helm)))
+ '(package-selected-packages (quote (ess elpy better-defaults helm)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
