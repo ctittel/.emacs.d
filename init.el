@@ -24,14 +24,13 @@
       (package-install package)))
       myPackages)
 
-;; BASIC CUSTOMIZATION
-;; --------------------------------------
-
+					; BASIC CUSTOMIZATION
+					; --------------------------------------
 (setq inhibit-startup-message t) ;; hide the startup message
 (global-linum-mode t) ;; enable line numbers globally
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(setq visible-bell t)
+(menu-bar-mode -1) ;; disable the menu bar
+(tool-bar-mode -1) ;; disable the tool bar
+(setq visible-bell t) ;; don't make the bell sound
 
 (setq
  backup-by-copying t      ; don't clobber symlinks
@@ -45,13 +44,13 @@
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
-;; Sprache: Deutsch und English
-;; ------------------------------
+					; Allow unicode symbols
+					; ------------------------------
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
-;; AUTOMATISCH
-;; -------------------------------
+					; Generated automatically
+					; -------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,7 +63,7 @@
  '(custom-enabled-themes nil)
  '(fci-rule-color "#37474f")
  '(hl-sexp-background-color "#1c1f26")
- '(package-selected-packages (quote (ess elpy better-defaults helm)))
+ '(package-selected-packages (quote (langtool auctex ess elpy better-defaults helm)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -96,8 +95,8 @@
  )
 
 
-;; HELM
-;; ------------------------------------
+					; HELM
+					; ------------------------------------
 (require 'helm)
 (require 'helm-config)
 
@@ -141,29 +140,30 @@
 					;(add-hook 'helm-minibuffer-set-up-hook
 					;         'spacemacs//helm-hide-minibuffer-maybe)
 
-(setq helm-autoresize-max-height 0)
-(setq helm-autoresize-min-height 20)
+;; (setq helm-autoresize-max-height 0)
+;; (setq helm-autoresize-min-height 20)
 (helm-autoresize-mode 1)
 
 (helm-mode 1)
 
-;; PYTHON
-;; -----------------------------------
+					; PYTHON
+					; -----------------------------------
 (elpy-enable)
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+(setq indent-tabs-mode nil)
 
+					; JULIA
+					; -----------------------------------
+;; for the julia programming language:
+;;(add-to-list 'load-path "julia")
+;;(require 'julia-mode)
+;;(add-hook 'julia-mode-hook
+;;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
 
-;; JULIA
-;; -----------------------------------
-;(add-to-list 'load-path "julia")
-;(require 'julia-mode)
-;(add-hook 'julia-mode-hook
-;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
-
-;; SLIME
-;; -----------------
+					; CLisp (SLIME)
+					; -----------------
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
@@ -172,16 +172,29 @@
 ;;  (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
 ;; (setq ess-history-file nil)
 
-;; Latex (AucTex)
-;; -------------------------
+
+					; Latex (AucTex)
+					; -------------------------
 ;;(load "auctex.el" nil t t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 (setq TeX-PDF-mode t)
 
 
-;; Same Instance
-;; --------------------
+					; open files opened in the OS in the same emacs instance
+					; --------------------
 (require 'server)
 (unless (server-running-p)
   (server-start)) 
+
+
+					; Org-Mode
+					; ------------------
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+					; Langtool
+					; -----------------
+(setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.3/languagetool-commandline.jar")
+(require 'langtool)
