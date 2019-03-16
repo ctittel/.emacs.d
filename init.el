@@ -17,7 +17,8 @@
   '(better-defaults
     helm
     elpy
-    flycheck))
+    flycheck
+    auctex))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -64,7 +65,7 @@
  '(custom-enabled-themes nil)
  '(fci-rule-color "#37474f")
  '(hl-sexp-background-color "#1c1f26")
- '(package-selected-packages (quote (ess elpy better-defaults helm)))
+ '(package-selected-packages (quote (langtool auctex ess elpy better-defaults helm)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -185,3 +186,8 @@
 (require 'server)
 (unless (server-running-p)
   (server-start)) 
+
+;; Langtool
+;; ---------------
+(setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.1/languagetool-commandline.jar")
+(require 'langtool)
