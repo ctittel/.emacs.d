@@ -27,12 +27,11 @@
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
-
 (setq inhibit-startup-message t) ;; hide the startup message
 (global-linum-mode t) ;; enable line numbers globally
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(setq visible-bell t)
+(menu-bar-mode -1) ;; disable the menu bar
+(tool-bar-mode -1) ;; disable the tool bar
+(setq visible-bell t) ;; don't make the bell sound
 
 (setq
  backup-by-copying t      ; don't clobber symlinks
@@ -154,17 +153,18 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+(setq indent-tabs-mode nil)
 
+					; JULIA
+					; -----------------------------------
+;; for the julia programming language:
+;;(add-to-list 'load-path "julia")
+;;(require 'julia-mode)
+;;(add-hook 'julia-mode-hook
+;;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
 
-;; JULIA
-;; -----------------------------------
-;(add-to-list 'load-path "julia")
-;(require 'julia-mode)
-;(add-hook 'julia-mode-hook
-;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
-
-;; SLIME
-;; -----------------
+					; CLisp (SLIME)
+					; -----------------
 (setq inferior-lisp-program "sbcl")
 (setq slime-contribs '(slime-fancy))
 
@@ -187,7 +187,14 @@
 (unless (server-running-p)
   (server-start)) 
 
-;; Langtool
-;; ---------------
-(setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.1/languagetool-commandline.jar")
+
+					; Org-Mode
+					; ------------------
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+					; Langtool
+					; -----------------
+(setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.3/languagetool-commandline.jar")
 (require 'langtool)
