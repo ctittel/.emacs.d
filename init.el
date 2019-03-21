@@ -196,5 +196,5 @@
 
 					; Langtool
 					; -----------------
-(setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.3/languagetool-commandline.jar")
-(require 'langtool)
+;; (setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.3/languagetool-commandline.jar")
+;; (require 'langtool)
