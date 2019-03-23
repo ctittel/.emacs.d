@@ -18,7 +18,8 @@
     helm
     elpy
     flycheck
-    auctex))
+    auctex
+    slime))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -64,7 +65,9 @@
  '(custom-enabled-themes nil)
  '(fci-rule-color "#37474f")
  '(hl-sexp-background-color "#1c1f26")
- '(package-selected-packages (quote (langtool auctex ess elpy better-defaults helm)))
+ '(package-selected-packages
+   (quote
+    (anaconda-mode jedi langtool auctex ess elpy better-defaults helm)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -155,6 +158,8 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 (setq indent-tabs-mode nil)
 
+
+(setq python-shell-interpreter "python3")
 					; JULIA
 					; -----------------------------------
 ;; for the julia programming language:
