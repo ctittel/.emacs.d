@@ -19,7 +19,8 @@
     elpy
     flycheck
     auctex
-    slime))
+    slime
+    deft))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -130,20 +131,6 @@
       helm-ff-file-name-history-use-recentf t
       helm-echo-input-in-header-line t)
 
-					;(defun spacemacs//helm-hide-minibuffer-maybe ()
-					; "Hide minibuffer in Helm session if we use the header line as input field."
-					;(when (with-helm-buffer helm-echo-input-in-header-line)
-					; (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-					;  (overlay-put ov 'window (selected-window))
-					; (overlay-put ov 'face
-					;             (let ((bg-color (face-background 'default nil)))
-					;              `(:background ,bg-color :foreground ,bg-color)))
-					;(setq-local cursor-type nil))))
-
-
-					;(add-hook 'helm-minibuffer-set-up-hook
-					;         'spacemacs//helm-hide-minibuffer-maybe)
-
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 20)
 (helm-autoresize-mode 1)
@@ -158,40 +145,7 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 (setq indent-tabs-mode nil)
 
-
 (setq python-shell-interpreter "python3")
-					; JULIA
-					; -----------------------------------
-;; for the julia programming language:
-;;(add-to-list 'load-path "julia")
-;;(require 'julia-mode)
-;;(add-hook 'julia-mode-hook
-;;	  (lambda() (local-set-key (kbd "С-c C-c") #'run-julia)))
-
-					; CLisp (SLIME)
-					; -----------------
-(setq inferior-lisp-program "sbcl")
-(setq slime-contribs '(slime-fancy))
-
-;; (require 'ess-site)
-;;  (setq ess-eval-visibly nil) ; ESS will not print the evaluated commands, also speeds up the evaluation 
-;;  (setq ess-ask-for-ess-directory nil) ;if you don't want to be prompted each time you start an interactive R session
-;; (setq ess-history-file nil)
-
-;; Latex (AucTex)
-;; -------------------------
-;;(load "auctex.el" nil t t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(setq TeX-PDF-mode t)
-
-
-;; Same Instance
-;; --------------------
-(require 'server)
-(unless (server-running-p)
-  (server-start)) 
-
 
 					; Org-Mode
 					; ------------------
@@ -199,7 +153,16 @@
  'org-babel-load-languages
  '((python . t)))
 
-					; Langtool
-					; -----------------
-;; (setq langtool-language-tool-jar "C:/ProgramData/chocolatey/lib/languagetool/tools/LanguageTool-4.3/languagetool-commandline.jar")
-;; (require 'langtool)
+;; deft
+;; --------------------------------------------
+(require 'deft)
+(setq deft-directory "~/Notes")
+(setq deft-extensions '("org" "md" "txt"))
+(setq deft-default-extension "org")
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)
+(setq deft-use-filter-string-for-filename t)
+(setq deft-file-naming-rules '((nospace . "-")))
+(setq deft-text-mode 'org-mode)
+
+(global-set-key (kbd "C-c d") 'deft)
