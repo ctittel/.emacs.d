@@ -20,7 +20,8 @@
     flycheck
     auctex
     slime
-    deft))
+    deft
+    org-download))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -152,11 +153,13 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
+(setq org-startup-folded nil)
+
 
 ;; deft
 ;; --------------------------------------------
 (require 'deft)
-(setq deft-directory "~/Notes")
+(setq deft-directory (substitute-in-file-name "$NOTES"))
 (setq deft-extensions '("org" "md" "txt"))
 (setq deft-default-extension "org")
 (setq deft-use-filename-as-title t)
@@ -166,3 +169,12 @@
 (setq deft-text-mode 'org-mode)
 
 (global-set-key (kbd "C-c d") 'deft)
+
+(add-hook 'org-mode-hook #'visual-line-mode)
+
+
+;;; org-download
+(require 'org-download)
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
