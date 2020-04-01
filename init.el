@@ -23,7 +23,8 @@
     deft
     org-download
     org-journal
-    org-roam))
+    org-roam
+    use-package))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -175,15 +176,38 @@
 
 ;; org-journal
 ;; ------------------
-(require 'org-journal)
-(setq org-journal-dir (substitute-in-file-name "$NOTES/journal/journal"))
-(setq 'org-journal-date-format "%A, %Y-%B-%d")
+;(require 'org-journal)
+;(setq org-journal-dir (substitute-in-file-name "$NOTES/journal/journal"))
+;(setq org-journal-date-format "%A, %Y-%B-%d")
+;(setq org-journal-date-prefix "#+TITLE: ")
+;(setq org-journal-file-format "%Y-%m-%d.org")
 
 ;; org-roam
 ;; ---------------
-(require 'org-roam)
-(setq org-roam-directory (substitute-in-file-name "$NOTES"))
+(use-package org-roam
+      :hook 
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory (substitute-in-file-name "$NOTES"))
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n b" . org-roam-switch-to-buffer)
+               ("C-c n g" . org-roam-show-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
 
+;(require 'org-roam)
+
+; define-key org-roam-mode-map (kbd "C-c n l") 'org-roam)
+;(define-key org-roam-mode-map (kbd "C-c n f") 'org-roam-find-file)
+;(define-key org-roam-mode-map (kbd "C-c n b") 'org-roam-switch-to-buffer)
+;(define-key org-roam-mode-map (kbd "C-c n g") 'org-roam-show-graph)
+;(define-key org-mode-map (kbd "C-c n i") 'org-roam-insert)
+;(org-roam-mode +1)
+
+
+;(setq org-roam-directory deft-directory)
 
 ;;; org-download
 ;; --------------------
