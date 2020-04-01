@@ -15,11 +15,7 @@
 
 (defvar myPackages
   '(better-defaults
-    helm
-    elpy
-    flycheck
-    auctex
-    slime
+    helme
     deft
     org-download
     org-journal
