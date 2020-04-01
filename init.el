@@ -21,7 +21,9 @@
     auctex
     slime
     deft
-    org-download))
+    org-download
+    org-journal
+    org-roam))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -148,13 +150,13 @@
 
 (setq python-shell-interpreter "python3")
 
-					; Org-Mode
-					; ------------------
+;; ======================
+;; HERE BE ORG-MODE STUFF
+;; ======================
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
 (setq org-startup-folded nil)
-
 
 ;; deft
 ;; --------------------------------------------
@@ -169,12 +171,23 @@
 (setq deft-text-mode 'org-mode)
 
 (global-set-key (kbd "C-c d") 'deft)
-
 (add-hook 'org-mode-hook #'visual-line-mode)
+
+;; org-journal
+;; ------------------
+(require 'org-journal)
+(setq org-journal-dir (substitute-in-file-name "$NOTES/journal/journal"))
+(setq 'org-journal-date-format "%A, %Y-%B-%d")
+
+;; org-roam
+;; ---------------
+(require 'org-roam)
+(setq org-roam-directory (substitute-in-file-name "$NOTES"))
 
 
 ;;; org-download
+;; --------------------
 (require 'org-download)
-
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
+
