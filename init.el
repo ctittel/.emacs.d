@@ -173,7 +173,7 @@
 ;; org-journal
 ;; ------------------
 (require 'org-journal)
-(setq org-journal-dir (substitute-in-file-name "$NOTES/journal/journal"))
+(setq org-journal-dir (substitute-in-file-name "$NOTES/journal"))
 (setq org-journal-date-format "%A, %Y-%m-%d")
 (setq org-journal-date-prefix "#+TITLE: ")
 (setq org-journal-file-format "%Y-%m-%d.org")
