@@ -13,6 +13,13 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; quelpa to automatically get packages from sources like github
+(unless (package-installed-p 'quelpa)
+    (with-temp-buffer
+      (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+      (eval-buffer)
+      (quelpa-self-upgrade)))
+
 (defvar myPackages
   '(better-defaults
     helm
@@ -20,12 +27,15 @@
     org-download
     org-journal
     org-roam
-    use-package))
+    use-package
+    emacsql-sqlite3))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
       (package-install package)))
       myPackages)
+
+;; (quelpa '(hydra :repo "ctonic/org-roam" :fetcher github))
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
@@ -43,9 +53,9 @@
  version-control t       ; use versioned backups
  )
 
-(setq auto-save-file-name-transforms `((".*" . ,temporary-file-directory)))
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq auto-save-default nil) ;; auto save makes it laggy
 
 ;; Sprache: Deutsch und English
 ;; ------------------------------
@@ -68,7 +78,7 @@
  '(hl-sexp-background-color "#1c1f26")
  '(package-selected-packages
    (quote
-    (anaconda-mode jedi langtool auctex ess elpy better-defaults helm)))
+    (emacsql-sqlite3 emacsql-sqlite anaconda-mode jedi langtool auctex ess elpy better-defaults helm)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -139,7 +149,7 @@
 
 ;; PYTHON
 ;; -----------------------------------
-(elpy-enable)
+;; (elpy-enable)
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
@@ -166,6 +176,7 @@
 (setq deft-use-filter-string-for-filename t)
 (setq deft-file-naming-rules '((nospace . "-")))
 (setq deft-text-mode 'org-mode)
+(setq deft-auto-save-interval nil) ;; not auto save please
 
 (global-set-key (kbd "C-c d") 'deft)
 (add-hook 'org-mode-hook #'visual-line-mode)
