@@ -28,6 +28,8 @@
     org-journal
     org-roam
     use-package
+    markdown-mode
+    adoc-mode
     emacsql-sqlite3))
 
 (mapc #'(lambda (package)
@@ -109,6 +111,8 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Asciidoc
+(autoload 'adoc-mode "adoc-mode" nil t)
 
 ;; HELM
 ;; ------------------------------------
